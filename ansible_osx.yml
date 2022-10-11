@@ -1,0 +1,48 @@
+# 
+# This playbook installs tools a developer need to work on Ledger products
+#
+
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks: 
+  - name: Installing brew cask packages
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+    with_items:
+      - sublime-merge
+      - sublime-text
+      - android-studio
+      - postman
+      - drawio
+      - android-file-transfer
+      - ledger-live
+      - utm
+
+  - name: Installing brew packages
+    community.general.homebrew:
+      name: "{{ item }}"
+    with_items:
+      - rbenv
+      - ruby-build
+      - node
+      - scrcpy
+
+  - name: Installing specific ruby version
+    ansible.builtin.shell:
+      cmd: rbenv install 2.7.2
+
+  - name: Specifying global ruby version
+    ansible.builtin.shell:
+      cmd: rbenv global 2.7.2
+
+  - name: Installing bundler - consistent environment for Ruby projects
+    ansible.builtin.shell:
+      cmd: eval "$(rbenv init -)" && gem install bundler --version 2.3.10
+
+  - name: Installing fastlane - tool to automate tedious tasks like releasing app for example
+    ansible.builtin.shell:
+      cmd: eval "$(rbenv init -)" && gem install fastlane --version 2.205.1
+... 

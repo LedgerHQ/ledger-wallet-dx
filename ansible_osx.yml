@@ -29,6 +29,7 @@
       - ruby-build
       - node
       - scrcpy
+      - git-lfs
 
   - name: Installing specific ruby version
     ansible.builtin.shell:

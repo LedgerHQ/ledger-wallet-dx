@@ -1,0 +1,2 @@
+export SMARTLING_USER_ID="enterYourSmartlingUserId"
+export SMARTLING_USER_SECRET="enterYourSmartlingUserSecret"

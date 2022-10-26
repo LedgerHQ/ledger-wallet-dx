@@ -38,22 +38,18 @@
       cmd: rbenv install 2.7.2
 
   - name: Specifying global ruby version
-    ignore_errors: yes
     ansible.builtin.shell:
       cmd: rbenv global 2.7.2
 
   - name: Installing bundler - consistent environment for Ruby projects
-    ignore_errors: yes
     ansible.builtin.shell:
       cmd: eval "$(rbenv init -)" && gem install bundler --version 2.3.10
 
   - name: Installing fastlane - tool to automate tedious tasks like releasing app for example
-    ignore_errors: yes
     ansible.builtin.shell:
       cmd: eval "$(rbenv init -)" && gem install fastlane --version 2.205.1
 
   - name: Install node 16.18.0 with nvm
-    ignore_errors: yes
     ansible.builtin.shell:
       cmd: source ~/.zshrc && nvm install 16.18.0
     args:

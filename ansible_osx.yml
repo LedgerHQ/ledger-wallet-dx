@@ -54,4 +54,9 @@
       cmd: source ~/.zshrc && nvm install 16.18.0
     args:
       executable: /bin/zsh
+
+  - name: Installing yarn
+    community.general.npm:
+      name: yarn
+      global: true
 ... 

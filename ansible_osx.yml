@@ -27,11 +27,13 @@
     with_items:
       - rbenv
       - ruby-build
-      - node
+      - nvm
       - scrcpy
       - git-lfs
+      - pnpm
 
   - name: Installing specific ruby version
+    ignore_errors: yes
     ansible.builtin.shell:
       cmd: rbenv install 2.7.2
 
@@ -46,4 +48,10 @@
   - name: Installing fastlane - tool to automate tedious tasks like releasing app for example
     ansible.builtin.shell:
       cmd: eval "$(rbenv init -)" && gem install fastlane --version 2.205.1
+
+  - name: Install node 16.18.0 with nvm
+    ansible.builtin.shell:
+      cmd: source ~/.zshrc && nvm install 16.18.0
+    args:
+      executable: /bin/zsh
 ... 

@@ -7,6 +7,7 @@ This repository contains scripts to setup a system from scratch (linux and Mac).
 ## Getting started
 
 The following commands must be executed in a terminal first before launching any scripts : 
+
 1. Installing [homebrew](https://brew.sh/) : 
 ```console
 user@ledger:~$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -23,9 +24,11 @@ user@ledger:~$ rm $HOME/.zshrc
 ```
 4. Copy / paste the `.zshrc_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zshrc`
 
-5. Refresh your current terminal :
+5. Copy / paste the `.zprofile_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zprofile`. You will need to replace credentials in this `.zprofile` file with Smartling credentials as soon as you have it.
+
+6. Refresh your current terminal :
  ```console
-user@ledger:~$ source ~/.zshrc
+user@ledger:~$ source ~/.zshrc && source ~/.zprofile
 ```
 
 ## Installation

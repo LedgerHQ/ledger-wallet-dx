@@ -18,15 +18,28 @@ user@ledger:~$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Home
 user@ledger:~$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-3. Remove the actual file `.zshrc` in your `$HOME` folder 
+3. Set ZSH as default shell :
+ ```console
+user@ledger:~$ chsh -s /bin/zsh
+```
+
+4. Close and restart your terminal.
+
+5. Check that ZSH is your default shell now :
+ ```console
+user@ledger:~$ echo $0
+```
+has to return "-zsh"
+
+6. Remove the actual file `.zshrc` in your `$HOME` folder 
  ```console
 user@ledger:~$ rm $HOME/.zshrc
 ```
-4. Copy / paste the `.zshrc_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zshrc`
+7. Copy / paste the `.zshrc_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zshrc`
 
-5. Copy / paste the `.zprofile_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zprofile`. You will need to replace credentials in this `.zprofile` file with Smartling credentials as soon as you have it.
+8. Copy / paste the `.zprofile_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zprofile`. You will need to replace credentials in this `.zprofile` file with Smartling credentials as soon as you have it.
 
-6. Refresh your current terminal :
+9. Refresh your current terminal :
  ```console
 user@ledger:~$ source ~/.zshrc && source ~/.zprofile
 ```

@@ -31,6 +31,7 @@
       - scrcpy
       - git-lfs
       - pnpm
+      - java11
 
   - name: Installing specific ruby version
     ignore_errors: yes
@@ -52,6 +53,12 @@
   - name: Install node 16.18.0 with nvm
     ansible.builtin.shell:
       cmd: source ~/.zshrc && nvm install 16.18.0
+    args:
+      executable: /bin/zsh
+
+  - name: Setup JAVA HOME
+    ansible.builtin.shell:
+      cmd: zsh bin/setup_java_home.sh
     args:
       executable: /bin/zsh
 

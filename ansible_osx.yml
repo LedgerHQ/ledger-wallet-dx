@@ -7,9 +7,20 @@
   gather_facts: no
   connection: local
 
+  vars:
+    vscode_extensions:
+      - { name: "Markdown Preview Enhanced", id: "shd101wyy.markdown-preview-enhanced" }
+      - { name: "ESLint", id: "dbaeumer.vscode-eslint"}
+      - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode"}
+      - { name: "Live Share", id: "MS-vsliveshare.vsliveshare"}
+
   vars_prompt:
     - name: sublime
       prompt: "Install Sublime Text ?"
+      default: "yes"
+      private: no
+    - name: vscode
+      prompt: "Install VSCode ?"
       default: "yes"
       private: no
 
@@ -22,6 +33,20 @@
       - sublime-merge
       - sublime-text
       - android-studio
+
+  - name: "Install VSCode"
+    when: vscode|bool
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+    with_items:
+      - visual-studio-code
+      
+  - name: "Install VSCode extensions"
+    when: vscode|bool
+    command: code --install-extension {{ item.id | default(item) }}
+    with_items: "{{ vscode_extensions }}"
+    register: vscode_result
+    changed_when: "'already installed' not in vscode_result.stdout"
 
   - name: Installing brew cask packages
     community.general.homebrew_cask:

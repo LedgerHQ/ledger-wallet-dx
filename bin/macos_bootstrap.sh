@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [[ $PATH != */opt/homebrew* ]]; then
+    PATH=$PATH:/opt/homebrew/bin
+fi
+
 echo "\n -- Installing Ansible... --\n"
 brew install ansible
 

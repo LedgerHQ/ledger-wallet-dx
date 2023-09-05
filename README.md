@@ -52,7 +52,7 @@ Once cloning this repository, a shell script : `bin/macos_bootstrap.sh` will per
 
 Execute the command :
  ```console
-./<path_to_your_Setup_repository>/bin/macos_bootstrap.sh
+./bin/macos_bootstrap.sh
 ```
 and then take a :coffee:. The installation will take some :hourglass:
 

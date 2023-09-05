@@ -7,14 +7,26 @@
   gather_facts: no
   connection: local
 
-  tasks: 
-  - name: Installing brew cask packages
+  vars_prompt:
+    - name: sublime
+      prompt: "Install Sublime Text ?"
+      default: "yes"
+      private: no
+
+  tasks:
+  - name: "Install Sublime Text"
+    when: sublime|bool
     community.general.homebrew_cask:
       name: "{{ item }}"
     with_items:
       - sublime-merge
       - sublime-text
       - android-studio
+
+  - name: Installing brew cask packages
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+    with_items:
       - postman
       - drawio
       - android-file-transfer

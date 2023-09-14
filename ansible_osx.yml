@@ -7,14 +7,66 @@
   gather_facts: no
   connection: local
 
-  tasks: 
-  - name: Installing brew cask packages
+  vars:
+    vscode_extensions:
+      - { name: "Markdown Preview Enhanced", id: "shd101wyy.markdown-preview-enhanced" }
+      - { name: "ESLint", id: "dbaeumer.vscode-eslint"}
+      - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode"}
+      - { name: "Live Share", id: "MS-vsliveshare.vsliveshare"}
+
+  vars_prompt:
+    - name: zsh
+      prompt: "Install Oh-my-zsh/Antigen ?"
+      default: "yes"
+      private: no
+    - name: sublime
+      prompt: "Install Sublime Text ?"
+      default: "yes"
+      private: no
+    - name: vscode
+      prompt: "Install VSCode ?"
+      default: "yes"
+      private: no
+
+  tasks:
+  - name: "Install Oh-my-zsh/Antigen"
+    when: zsh|bool
+    ansible.builtin.shell:
+      cmd: curl -L git.io/antigen > ~/antigen.zsh
+
+  - name: "Copy .zshrc file"
+    when: zsh|bool
+    template:
+      src: files/zsh/.zshrc
+      dest: ~/.zshrc
+
+  - name: "Install Sublime Text"
+    when: sublime|bool
     community.general.homebrew_cask:
       name: "{{ item }}"
     with_items:
       - sublime-merge
       - sublime-text
       - android-studio
+
+  - name: "Install VSCode"
+    when: vscode|bool
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+    with_items:
+      - visual-studio-code
+      
+  - name: "Install VSCode extensions"
+    when: vscode|bool
+    command: code --install-extension {{ item.id | default(item) }}
+    with_items: "{{ vscode_extensions }}"
+    register: vscode_result
+    changed_when: "'already installed' not in vscode_result.stdout"
+
+  - name: Installing brew cask packages
+    community.general.homebrew_cask:
+      name: "{{ item }}"
+    with_items:
       - postman
       - drawio
       - android-file-transfer
@@ -37,6 +89,11 @@
     ignore_errors: yes
     ansible.builtin.shell:
       cmd: rbenv install 2.7.2
+    register: rbenv_result
+    failed_when: 
+      - '"already exist" not in rbenv_result.stderr and rbenv_result.rc == 1'
+      - rbenv_result.rc > 1
+    changed_when: '"already exist" not in rbenv_result.stderr'
 
   - name: Specifying global ruby version
     ansible.builtin.shell:
@@ -53,12 +110,6 @@
   - name: Install node 16.18.0 with nvm
     ansible.builtin.shell:
       cmd: source ~/.zshrc && nvm install 16.18.0
-    args:
-      executable: /bin/zsh
-
-  - name: Setup JAVA HOME
-    ansible.builtin.shell:
-      cmd: zsh bin/setup_java_home.sh
     args:
       executable: /bin/zsh
 

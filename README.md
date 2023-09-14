@@ -8,40 +8,9 @@ This repository contains scripts to setup a system from scratch (linux and Mac).
 
 The following commands must be executed in a terminal first before launching any scripts : 
 
-1. Installing [homebrew](https://brew.sh/) : 
+Installing [homebrew](https://brew.sh/) : 
 ```console
-user@ledger:~$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-2. Installing [ohmyzsh](https://ohmyz.sh/) :
- ```console
-user@ledger:~$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-3. Set ZSH as default shell :
- ```console
-user@ledger:~$ chsh -s /bin/zsh
-```
-
-4. Close and restart your terminal.
-
-5. Check that ZSH is your default shell now :
- ```console
-user@ledger:~$ echo $0
-```
-has to return "-zsh"
-
-6. Remove the actual file `.zshrc` in your `$HOME` folder 
- ```console
-user@ledger:~$ rm $HOME/.zshrc
-```
-7. Copy / paste the `.zshrc_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zshrc`
-
-8. Copy / paste the `.zprofile_template` file from this repository to your `$HOME` folder. :warning: Do not forget to rename it `.zprofile`. You will need to replace credentials in this `.zprofile` file with Smartling credentials as soon as you have it.
-
-9. Refresh your current terminal :
- ```console
-user@ledger:~$ source ~/.zshrc && source ~/.zprofile
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 ## Installation
@@ -52,7 +21,7 @@ Once cloning this repository, a shell script : `bin/macos_bootstrap.sh` will per
 
 Execute the command :
  ```console
-user@ledger:~$ ./<path_to_your_Setup_repository>/bin/macos_bootstrap.sh
+./bin/macos_bootstrap.sh
 ```
 and then take a :coffee:. The installation will take some :hourglass:
 
@@ -64,7 +33,7 @@ The easiest way to understand what's installed is to read the contents of `ansib
 
 You will need to reload your current shell once the script has finished. To do so, execute the following command : 
  ```console
-user@ledger:~$ refreshBash
+exec zsh
 ```
 Now you're done and your laptop is ready :clap:
 

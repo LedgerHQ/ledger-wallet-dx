@@ -84,6 +84,7 @@
       - git-lfs
       - pnpm
       - java11
+      - ios-deploy
 
   - name: Installing specific ruby version
     ignore_errors: yes

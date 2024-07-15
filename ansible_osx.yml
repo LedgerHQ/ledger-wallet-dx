@@ -38,6 +38,10 @@
       prompt: "Install xcodes ?"
       default: "yes"
       private: no
+    - name: androidStudio
+      prompt: "Install Android Studio ?"
+      default: "yes"
+      private: no
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -58,7 +62,6 @@
       with_items:
         - sublime-merge
         - sublime-text
-        - android-studio
 
     - name: "Install VSCode"
       when: vscode|bool
@@ -98,6 +101,7 @@
         - unzip
         - gzip
         - xz
+        - openjdk@17
 
     - name: Installing xcodes - tool to manage Xcode versions
       when: xcodes|bool
@@ -105,6 +109,11 @@
         name: "{{ item }}"
       with_items:
         - xcodes
+
+    - name: Installing Android Studio
+      when: androidStudio|bool
+      community.general.homebrew_cask:
+        name: android-studio
 
     - name: Installing latest Xcode
       when: xcodes|bool

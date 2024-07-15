@@ -34,6 +34,10 @@
       prompt: "Install VSCode ?"
       default: "yes"
       private: no
+    - name: xcodes
+      prompt: "Install xcodes ?"
+      default: "yes"
+      private: no
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -94,6 +98,18 @@
         - unzip
         - gzip
         - xz
+
+    - name: Installing xcodes - tool to manage Xcode versions
+      when: xcodes|bool
+      community.general.homebrew:
+        name: "{{ item }}"
+      with_items:
+        - xcodes
+
+    - name: Installing latest Xcode
+      when: xcodes|bool
+      ansible.builtin.shell:
+        cmd: xcodes install --latest
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:

@@ -111,7 +111,7 @@
     - name: Installing specific ruby version
       ignore_errors: yes
       ansible.builtin.shell:
-        cmd: rbenv install 2.7.2
+        cmd: rbenv install 3.3.0
       register: rbenv_result
       failed_when:
         - '"already exist" not in rbenv_result.stderr and rbenv_result.rc == 1'
@@ -120,7 +120,7 @@
 
     - name: Specifying global ruby version
       ansible.builtin.shell:
-        cmd: rbenv global 2.7.2
+        cmd: rbenv global 3.3.0
 
     - name: Installing bundler - consistent environment for Ruby projects
       ansible.builtin.shell:

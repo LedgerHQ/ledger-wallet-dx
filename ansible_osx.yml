@@ -79,7 +79,7 @@
         - android-file-transfer
         - ledger-live
         - utm
-        - zulu17
+        - zulu@17
 
     - name: Installing brew packages
       community.general.homebrew:

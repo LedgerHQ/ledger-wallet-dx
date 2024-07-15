@@ -70,10 +70,6 @@
       register: vscode_result
       changed_when: "'already installed' not in vscode_result.stdout"
 
-    - name: "Tap Homebrew"
-      ansible.builtin.shell:
-        cmd: brew tap homebrew/cask-versions
-
     - name: Installing brew cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"

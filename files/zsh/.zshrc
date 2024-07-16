@@ -39,6 +39,7 @@ export PATH=$PATH:/opt/homebrew/bin
 # proto
 export PROTO_HOME="$HOME/.proto"
 export PATH="$PROTO_HOME/bin:$PATH"
+export PATH="$PROTO_HOME/shims:$PATH"
 
 # android sdk
 export ANDROID_HOME=$HOME/Library/Android/sdk
@@ -46,4 +47,4 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # java
-export JAVA_HOME=/opt/homebrew/Cellar/openjdk@11/11.0.20.1/libexec/openjdk.jdk/Contents/Home
+export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"

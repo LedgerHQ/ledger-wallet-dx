@@ -34,6 +34,14 @@
       prompt: "Install VSCode ?"
       default: "yes"
       private: no
+    - name: xcodes
+      prompt: "Install xcodes ?"
+      default: "yes"
+      private: no
+    - name: androidStudio
+      prompt: "Install Android Studio ?"
+      default: "yes"
+      private: no
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -54,7 +62,6 @@
       with_items:
         - sublime-merge
         - sublime-text
-        - android-studio
 
     - name: "Install VSCode"
       when: vscode|bool
@@ -70,10 +77,6 @@
       register: vscode_result
       changed_when: "'already installed' not in vscode_result.stdout"
 
-    - name: "Tap Homebrew"
-      ansible.builtin.shell:
-        cmd: brew tap homebrew/cask-versions
-
     - name: Installing brew cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"
@@ -83,7 +86,7 @@
         - android-file-transfer
         - ledger-live
         - utm
-        - zulu17
+        - zulu@17
 
     - name: Installing brew packages
       community.general.homebrew:
@@ -98,6 +101,24 @@
         - unzip
         - gzip
         - xz
+        - openjdk@17
+
+    - name: Installing xcodes - tool to manage Xcode versions
+      when: xcodes|bool
+      community.general.homebrew:
+        name: "{{ item }}"
+      with_items:
+        - xcodes
+
+    - name: Installing Android Studio
+      when: androidStudio|bool
+      community.general.homebrew_cask:
+        name: android-studio
+
+    - name: Installing latest Xcode
+      when: xcodes|bool
+      ansible.builtin.shell:
+        cmd: xcodes install --latest
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:
@@ -111,7 +132,7 @@
     - name: Installing specific ruby version
       ignore_errors: yes
       ansible.builtin.shell:
-        cmd: rbenv install 2.7.2
+        cmd: rbenv install 3.3.0
       register: rbenv_result
       failed_when:
         - '"already exist" not in rbenv_result.stderr and rbenv_result.rc == 1'
@@ -120,7 +141,7 @@
 
     - name: Specifying global ruby version
       ansible.builtin.shell:
-        cmd: rbenv global 2.7.2
+        cmd: rbenv global 3.3.0
 
     - name: Installing bundler - consistent environment for Ruby projects
       ansible.builtin.shell:

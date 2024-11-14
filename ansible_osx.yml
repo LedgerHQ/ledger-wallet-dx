@@ -115,10 +115,10 @@
       community.general.homebrew_cask:
         name: android-studio
 
-    - name: Installing latest Xcode
+    - name: Installing Xcode 15.4
       when: xcodes|bool
       ansible.builtin.shell:
-        cmd: xcodes install --latest
+        cmd: xcodes install 15.4
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:

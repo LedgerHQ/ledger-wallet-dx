@@ -34,7 +34,7 @@
       prompt: "Install VSCode ?"
       default: "yes"
       private: no
-    - name: xcodes
+    - name: xcode
       prompt: "Install xcode ?"
       default: "yes"
       private: no
@@ -109,7 +109,7 @@
         name: android-studio
 
     - name: Installing Xcode 16.2
-      when: xcodes|bool
+      when: xcode|bool
       ansible.builtin.shell:
         cmd: xcodes install 16.2
 

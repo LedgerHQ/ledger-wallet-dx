@@ -13,6 +13,14 @@ Installing [homebrew](https://brew.sh/) :
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+Then install [xcodes](https://github.com/XcodesOrg/xcodes)
+
+*Since you need to authenticate your Apple ID requiring a 2FA authentifications, you have to run this part manually before running the next part. Additionnly and since `@ledger.fr` extension is currently unhauthorized by Apple policies you will have to use your email address with `.com` instead of `.fr` (being an alias to `.com`)*
+
+```bash
+brew install xcodesorg/made/xcodes
+```
+
 ## Installation
 
 Once cloning this repository, a shell script : `bin/macos_bootstrap.sh` will perform the initial steps: 

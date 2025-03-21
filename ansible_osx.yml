@@ -17,8 +17,8 @@
       - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode" }
       - { name: "Live Share", id: "MS-vsliveshare.vsliveshare" }
     proto_tools:
-      - { name: "node", version: "20.12.2" }
-      - { name: "pnpm", version: "9.0.5" }
+      - { name: "node", version: "22.13.1" }
+      - { name: "pnpm", version: "9.12.3" }
       - { name: "npm", version: "10.5.2" }
 
   vars_prompt:
@@ -35,7 +35,7 @@
       default: "yes"
       private: no
     - name: xcodes
-      prompt: "Install xcodes ?"
+      prompt: "Install xcode ?"
       default: "yes"
       private: no
     - name: androidStudio
@@ -103,22 +103,15 @@
         - xz
         - openjdk@17
 
-    - name: Installing xcodes - tool to manage Xcode versions
-      when: xcodes|bool
-      community.general.homebrew:
-        name: "{{ item }}"
-      with_items:
-        - xcodes
-
     - name: Installing Android Studio
       when: androidStudio|bool
       community.general.homebrew_cask:
         name: android-studio
 
-    - name: Installing Xcode 15.4
+    - name: Installing Xcode 16.2
       when: xcodes|bool
       ansible.builtin.shell:
-        cmd: xcodes install 15.4
+        cmd: xcodes install 16.2
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:

@@ -51,3 +51,22 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # java
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+
+# android shortcuts to connect to a device via wifi
+## 1. function to get local wlan IP adress of phone connected through adb
+adbgetip()
+{
+  adb shell ip addr show wlan0 | grep inet | grep wlan0 | xargs | cut -d' ' -f2 | cut -d'/' -f1
+}
+## 2. function to connect to the device via wifi
+#   a. plug your android device with remote debugging enabled
+#   b. type `adbconnectwithwifi`
+#   c. you can now unplug your phone and it's still connected w/ adb
+adbconnectwithwifi()
+{
+  adbip=$(adbgetip)
+  echo $adbip
+  adb tcpip 5555
+  sleep 1
+  adb connect "$adbip:5555"
+}

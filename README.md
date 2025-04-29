@@ -40,3 +40,11 @@ Now you're done and your laptop is ready :clap:
 ## Improvements
 
 New tools and utilities installed through `ansible` can be added. To test your work you can use [utm](https://mac.getutm.app/) (already installed)
+
+## Pre-installed zsh shortcuts
+
+Once the installation is done, you can use the following shortcuts in your zsh terminal.
+
+| Shortcut | Description |
+| ------------------ | ------------------ |
+| adbconnectwithwifi | Connect via wifi to a plugged in Android phone ([official doc](https://developer.android.com/tools/adb#connect-to-a-device-over-wi-fi)) |

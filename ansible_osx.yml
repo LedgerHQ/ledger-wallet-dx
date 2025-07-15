@@ -143,3 +143,11 @@
     - name: Installing fastlane - tool to automate tedious tasks like releasing app for example
       ansible.builtin.shell:
         cmd: eval "$(rbenv init -)" && gem install fastlane --version 2.205.1
+
+    - name: Installing Xcode plugin for kotlin
+      ansible.builtin.shell:
+        cmd: brew install xcode-kotlin
+
+    - name: Installing xcode-kotlin
+      ansible.builtin.shell:
+        cmd: xcode-kotlin install

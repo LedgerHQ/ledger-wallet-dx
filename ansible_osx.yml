@@ -87,6 +87,7 @@
         - ledger-live
         - utm
         - zulu@17
+        - insomnia
 
     - name: Installing brew packages
       community.general.homebrew:

@@ -59,13 +59,12 @@
         src: files/zsh/.zshrc
         dest: ~/.zshrc
 
-    - name: "Install Sublime Text"
+    - name: "Install Sublime Merge"
       when: sublime|bool
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:
         - sublime-merge
-        - sublime-text
 
     - name: "Install VSCode"
       when: vscode|bool

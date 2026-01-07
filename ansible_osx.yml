@@ -34,6 +34,10 @@
       prompt: "Install VSCode ?"
       default: "yes"
       private: no
+    - name: cursor
+      prompt: "Install Cursor ?"
+      default: "yes"
+      private: no
     - name: xcode
       prompt: "Install xcode ?"
       default: "yes"
@@ -76,6 +80,13 @@
       with_items: "{{ vscode_extensions }}"
       register: vscode_result
       changed_when: "'already installed' not in vscode_result.stdout"
+
+    - name: Install Cursor
+      when: cursor|bool
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - cursor
 
     - name: Installing brew cask packages
       community.general.homebrew_cask:

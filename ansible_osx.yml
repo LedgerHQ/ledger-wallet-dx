@@ -80,8 +80,15 @@
       register: vscode_result
       changed_when: "'already installed' not in vscode_result.stdout"
 
-    - name: Install Cursor
+    - name: Check if Cursor is already installed
       when: cursor|bool
+      ansible.builtin.command: brew list --cask cursor
+      register: cursor_check
+      changed_when: false
+      failed_when: false
+
+    - name: Install Cursor
+      when: cursor|bool and cursor_check.rc != 0
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:

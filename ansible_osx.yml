@@ -27,7 +27,7 @@
       default: "yes"
       private: no
     - name: sublime
-      prompt: "Install Sublime Text?"
+      prompt: "Install Sublime Merge?"
       default: "yes"
       private: no
     - name: vscode

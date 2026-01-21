@@ -16,6 +16,7 @@
       - { name: "ESLint", id: "dbaeumer.vscode-eslint" }
       - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode" }
       - { name: "Live Share", id: "MS-vsliveshare.vsliveshare" }
+
     proto_tools:
       - { name: "node", version: "22.13.1" }
       - { name: "pnpm", version: "9.12.3" }
@@ -38,8 +39,8 @@
       prompt: "Install Cursor?"
       default: "yes"
       private: no
-    - name: xcodes
-      prompt: "Install xcodes?"
+    - name: xcode
+      prompt: "Install Xcode?"
       default: "yes"
       private: no
     - name: androidStudio
@@ -160,8 +161,13 @@
       community.general.homebrew_cask:
         name: android-studio
 
-    - name: Installing xcodes 16.2
-      when: xcodes|bool
+    - name: Install Xcodes (Xcode manager)
+      when: xcode|bool
+      community.general.homebrew:
+        name: xcodes
+
+    - name: Installing Xcode 16.2
+      when: xcode|bool
       ansible.builtin.shell:
         cmd: xcodes install 16.2
 

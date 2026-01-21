@@ -53,11 +53,18 @@
       ansible.builtin.shell:
         cmd: curl -L git.io/antigen > ~/antigen.zsh
 
-    - name: "Copy .zshrc file"
+    - name: "Copy .zsh-ledger-dx file"
       when: zsh|bool
       template:
-        src: files/zsh/.zshrc
-        dest: ~/.zshrc
+        src: files/zsh/.zsh-ledger-dx
+        dest: ~/.zsh-ledger-dx
+
+    - name: "Load .zsh-ledger-dx file in .zshrc"
+      when: zsh|bool
+      ansible.builtin.lineinfile:
+        path: ~/.zshrc
+        line: source ~/.zsh-ledger-dx
+        create: true
 
     - name: "Install Sublime Merge"
       when: sublime|bool

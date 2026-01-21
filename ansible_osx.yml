@@ -38,8 +38,8 @@
       prompt: "Install Cursor ?"
       default: "yes"
       private: no
-    - name: xcode
-      prompt: "Install xcode ?"
+    - name: xcodes
+      prompt: "Install xcodes ?"
       default: "yes"
       private: no
     - name: androidStudio
@@ -126,8 +126,8 @@
       community.general.homebrew_cask:
         name: android-studio
 
-    - name: Installing Xcode 16.2
-      when: xcode|bool
+    - name: Installing xcodes 16.2
+      when: xcodes|bool
       ansible.builtin.shell:
         cmd: xcodes install 16.2
 

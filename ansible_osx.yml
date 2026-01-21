@@ -39,15 +39,6 @@
       prompt: "Install Cursor?"
       default: "yes"
       private: no
-    - name: xcode
-      prompt: "Install Xcode?"
-      default: "yes"
-      private: no
-    - name: apple_id
-      prompt: "What is your Apple ID? (for Xcode installation)"
-      private: no
-    - name: apple_password
-      prompt: "What is your Apple password? (for Xcode installation)"
     - name: androidStudio
       prompt: "Install Android Studio?"
       default: "yes"
@@ -165,16 +156,6 @@
       when: androidStudio|bool
       community.general.homebrew_cask:
         name: android-studio
-
-    - name: Install Xcodes (Xcode manager)
-      when: xcode|bool
-      community.general.homebrew:
-        name: xcodes
-
-    - name: Installing Xcode 16.2
-      when: xcode|bool
-      ansible.builtin.shell:
-        cmd: export XCODES_USERNAME="{{ apple_id }}" && export XCODES_PASSWORD="{{ apple_password }}" && xcodes install 16.2
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:

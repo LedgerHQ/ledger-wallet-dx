@@ -46,6 +46,8 @@
       prompt: "Install Android Studio?"
       default: "yes"
       private: no
+    - name: password
+      prompt: What is your admin password for sudo installs?
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -109,13 +111,13 @@
     - name: Installing brew cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"
+        sudo_password: "{{ password }}"
       with_items:
         - drawio
         - android-file-transfer
         - ledger-live
         - utm
         - zulu@17
-        - insomnia
 
     - name: Check if Postman app already exists
       ansible.builtin.stat:
@@ -126,6 +128,17 @@
       when: not postman_app.stat.exists
       community.general.homebrew_cask:
         name: postman
+
+    - name: Check if Insomnia app already exists
+      ansible.builtin.stat:
+        path: /Applications/Insomnia.app
+      register: insomnia_app
+
+    - name: Installing Insomnia
+      when: not insomnia_app.stat.exists
+      community.general.homebrew_cask:
+        name: insomnia
+        sudo_password: "{{ password }}"
 
     - name: Installing brew packages
       community.general.homebrew:

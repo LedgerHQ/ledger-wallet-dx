@@ -23,27 +23,27 @@
 
   vars_prompt:
     - name: zsh
-      prompt: "Install Oh-my-zsh/Antigen ?"
+      prompt: "Install Oh-my-zsh/Antigen?"
       default: "yes"
       private: no
     - name: sublime
-      prompt: "Install Sublime Text ?"
+      prompt: "Install Sublime Text?"
       default: "yes"
       private: no
     - name: vscode
-      prompt: "Install VSCode ?"
+      prompt: "Install VSCode?"
       default: "yes"
       private: no
     - name: cursor
-      prompt: "Install Cursor ?"
+      prompt: "Install Cursor?"
       default: "yes"
       private: no
     - name: xcodes
-      prompt: "Install xcodes ?"
+      prompt: "Install xcodes?"
       default: "yes"
       private: no
     - name: androidStudio
-      prompt: "Install Android Studio ?"
+      prompt: "Install Android Studio?"
       default: "yes"
       private: no
 

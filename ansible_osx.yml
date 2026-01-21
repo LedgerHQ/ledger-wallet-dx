@@ -110,13 +110,22 @@
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:
-        - postman
         - drawio
         - android-file-transfer
         - ledger-live
         - utm
         - zulu@17
         - insomnia
+
+    - name: Check if Postman app already exists
+      ansible.builtin.stat:
+        path: /Applications/Postman.app
+      register: postman_app
+
+    - name: Installing Postman
+      when: not postman_app.stat.exists
+      community.general.homebrew_cask:
+        name: postman
 
     - name: Installing brew packages
       community.general.homebrew:

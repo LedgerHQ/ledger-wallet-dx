@@ -73,8 +73,14 @@
       with_items:
         - sublime-merge
 
-    - name: "Install VSCode"
+    - name: Check if VSCode app already exists
       when: vscode|bool
+      ansible.builtin.stat:
+        path: /Applications/Visual Studio Code.app
+      register: vscode_app
+
+    - name: "Install VSCode"
+      when: vscode|bool and not vscode_app.stat.exists
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:
@@ -89,13 +95,12 @@
 
     - name: Check if Cursor is already installed
       when: cursor|bool
-      ansible.builtin.command: brew list --cask cursor
-      register: cursor_check
-      changed_when: false
-      failed_when: false
+      ansible.builtin.stat:
+        path: /Applications/Cursor.app
+      register: cursor_app
 
     - name: Install Cursor
-      when: cursor|bool and cursor_check.rc != 0
+      when: cursor|bool and not cursor_app.stat.exists
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:

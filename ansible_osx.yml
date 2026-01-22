@@ -16,6 +16,7 @@
       - { name: "ESLint", id: "dbaeumer.vscode-eslint" }
       - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode" }
       - { name: "Live Share", id: "MS-vsliveshare.vsliveshare" }
+
     proto_tools:
       - { name: "node", version: "22.13.1" }
       - { name: "pnpm", version: "9.12.3" }
@@ -23,29 +24,27 @@
 
   vars_prompt:
     - name: zsh
-      prompt: "Install Oh-my-zsh/Antigen ?"
+      prompt: "Install Oh-my-zsh/Antigen?"
       default: "yes"
       private: no
     - name: sublime
-      prompt: "Install Sublime Text ?"
+      prompt: "Install Sublime Merge?"
       default: "yes"
       private: no
     - name: vscode
-      prompt: "Install VSCode ?"
+      prompt: "Install VSCode?"
       default: "yes"
       private: no
     - name: cursor
-      prompt: "Install Cursor ?"
-      default: "yes"
-      private: no
-    - name: xcode
-      prompt: "Install xcode ?"
+      prompt: "Install Cursor?"
       default: "yes"
       private: no
     - name: androidStudio
-      prompt: "Install Android Studio ?"
+      prompt: "Install Android Studio?"
       default: "yes"
       private: no
+    - name: password
+      prompt: What is your admin password for sudo installs?
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -53,11 +52,18 @@
       ansible.builtin.shell:
         cmd: curl -L git.io/antigen > ~/antigen.zsh
 
-    - name: "Copy .zshrc file"
+    - name: "Copy .zsh-ledger-dx file"
       when: zsh|bool
       template:
-        src: files/zsh/.zshrc
-        dest: ~/.zshrc
+        src: files/zsh/.zsh-ledger-dx
+        dest: ~/.zsh-ledger-dx
+
+    - name: "Load .zsh-ledger-dx file in .zshrc"
+      when: zsh|bool
+      ansible.builtin.lineinfile:
+        path: ~/.zshrc
+        line: source ~/.zsh-ledger-dx
+        create: true
 
     - name: "Install Sublime Merge"
       when: sublime|bool
@@ -66,8 +72,14 @@
       with_items:
         - sublime-merge
 
-    - name: "Install VSCode"
+    - name: Check if VSCode app already exists
       when: vscode|bool
+      ansible.builtin.stat:
+        path: /Applications/Visual Studio Code.app
+      register: vscode_app
+
+    - name: "Install VSCode"
+      when: vscode|bool and not vscode_app.stat.exists
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:
@@ -80,8 +92,14 @@
       register: vscode_result
       changed_when: "'already installed' not in vscode_result.stdout"
 
-    - name: Install Cursor
+    - name: Check if Cursor is already installed
       when: cursor|bool
+      ansible.builtin.stat:
+        path: /Applications/Cursor.app
+      register: cursor_app
+
+    - name: Install Cursor
+      when: cursor|bool and not cursor_app.stat.exists
       community.general.homebrew_cask:
         name: "{{ item }}"
       with_items:
@@ -90,14 +108,34 @@
     - name: Installing brew cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"
+        sudo_password: "{{ password }}"
       with_items:
-        - postman
         - drawio
         - android-file-transfer
         - ledger-live
         - utm
         - zulu@17
-        - insomnia
+
+    - name: Check if Postman app already exists
+      ansible.builtin.stat:
+        path: /Applications/Postman.app
+      register: postman_app
+
+    - name: Installing Postman
+      when: not postman_app.stat.exists
+      community.general.homebrew_cask:
+        name: postman
+
+    - name: Check if Insomnia app already exists
+      ansible.builtin.stat:
+        path: /Applications/Insomnia.app
+      register: insomnia_app
+
+    - name: Installing Insomnia
+      when: not insomnia_app.stat.exists
+      community.general.homebrew_cask:
+        name: insomnia
+        sudo_password: "{{ password }}"
 
     - name: Installing brew packages
       community.general.homebrew:
@@ -118,11 +156,6 @@
       when: androidStudio|bool
       community.general.homebrew_cask:
         name: android-studio
-
-    - name: Installing Xcode 16.2
-      when: xcode|bool
-      ansible.builtin.shell:
-        cmd: xcodes install 16.2
 
     - name: Installing proto toolchain manager
       ansible.builtin.shell:

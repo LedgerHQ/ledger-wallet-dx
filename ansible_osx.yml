@@ -16,10 +16,10 @@
       - { name: "ESLint", id: "dbaeumer.vscode-eslint" }
       - { name: "Prettier - Code formatter", id: "esbenp.prettier-vscode" }
       - { name: "Live Share", id: "MS-vsliveshare.vsliveshare" }
-    proto_tools:
-      - { name: "node", version: "22.13.1" }
-      - { name: "pnpm", version: "9.12.3" }
-      - { name: "npm", version: "10.5.2" }
+    mise_tools:
+      - { name: "node", version: "24.14.0" }
+      - { name: "pnpm", version: "10.24.0" }
+      - { name: "ruby", version: "3.3.7" }
 
   vars_prompt:
     - name: zsh
@@ -103,8 +103,7 @@
       community.general.homebrew:
         name: "{{ item }}"
       with_items:
-        - rbenv
-        - ruby-build
+        - mise
         - scrcpy
         - git-lfs
         - ios-deploy
@@ -119,41 +118,27 @@
       community.general.homebrew_cask:
         name: android-studio
 
-    - name: Installing Xcode 16.2
+    - name: Installing and selecting Xcode 16.2
       when: xcode|bool
       ansible.builtin.shell:
-        cmd: xcodes install 16.2
+        cmd: xcodes install 16.2 --select
 
-    - name: Installing proto toolchain manager
+    - name: Configuring mise to use precompiled Ruby binaries
       ansible.builtin.shell:
-        cmd: curl -fsSL https://moonrepo.dev/install/proto.sh | bash
+        cmd: mise settings set ruby.compile false
 
-    - name: Installing default node/npm/pnpm versions
+    - name: Installing default development tool versions
       ansible.builtin.shell:
-        cmd: source ~/.zshrc && proto install {{ item.name }} {{ item.version }}
-      with_items: "{{ proto_tools }}"
-
-    - name: Installing specific ruby version
-      ignore_errors: yes
-      ansible.builtin.shell:
-        cmd: rbenv install 3.3.0
-      register: rbenv_result
-      failed_when:
-        - '"already exist" not in rbenv_result.stderr and rbenv_result.rc == 1'
-        - rbenv_result.rc > 1
-      changed_when: '"already exist" not in rbenv_result.stderr'
-
-    - name: Specifying global ruby version
-      ansible.builtin.shell:
-        cmd: rbenv global 3.3.0
+        cmd: mise use --global {{ item.name }}@{{ item.version }}
+      with_items: "{{ mise_tools }}"
 
     - name: Installing bundler - consistent environment for Ruby projects
       ansible.builtin.shell:
-        cmd: eval "$(rbenv init -)" && gem install bundler --version 2.3.10
+        cmd: mise exec ruby@3.3.7 -- gem install bundler --version 2.5.7
 
     - name: Installing fastlane - tool to automate tedious tasks like releasing app for example
       ansible.builtin.shell:
-        cmd: eval "$(rbenv init -)" && gem install fastlane --version 2.205.1
+        cmd: mise exec ruby@3.3.7 -- gem install fastlane --version 2.228.0
 
     - name: Installing Xcode plugin for kotlin
       ansible.builtin.shell:

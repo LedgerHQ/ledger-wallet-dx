@@ -45,7 +45,7 @@ You will need to reload your current shell once the script has finished. To do s
 exec zsh
 ```
 
-Also ensure you have opened **Android Studio** for the first time and complete setup.
+Also ensure you have opened **Android Studio** for the first time and completed the setup.
 
 Now you're done and your laptop is ready :clap:
 

@@ -46,6 +46,9 @@
       prompt: "Install Android Studio?"
       default: "yes"
       private: no
+    - name: password
+      prompt: Admin password (for sudo installs)?
+      private: yes
 
   tasks:
     - name: "Install Oh-my-zsh/Antigen"
@@ -109,6 +112,7 @@
     - name: Installing brew cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"
+        sudo_password: "{{ password }}"
       with_items:
         - drawio
         - android-file-transfer

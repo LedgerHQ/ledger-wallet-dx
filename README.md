@@ -39,10 +39,14 @@ The easiest way to understand what's installed is to read the contents of `ansib
 
 ## Finalisation 
 
-You will need to reload your current shell once the script has finished. To do so, execute the following command : 
- ```console
+You will need to reload your current shell once the script has finished. To do so, execute the following command:
+
+```console
 exec zsh
 ```
+
+Also ensure you have opened **Android Studio** for the first time and completed the setup.
+
 Now you're done and your laptop is ready :clap:
 
 ## Improvements

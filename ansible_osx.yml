@@ -38,10 +38,6 @@
       prompt: "Install Cursor?"
       default: "yes"
       private: no
-    - name: xcode
-      prompt: "Install Xcode 16.2?"
-      default: "yes"
-      private: no
     - name: androidStudio
       prompt: "Install Android Studio?"
       default: "yes"
@@ -159,11 +155,6 @@
       when: androidStudio|bool
       community.general.homebrew_cask:
         name: android-studio
-
-    - name: Installing and selecting Xcode 16.2
-      when: xcode|bool
-      ansible.builtin.shell:
-        cmd: xcodes install 16.2 --select
 
     - name: Configuring mise to use precompiled Ruby binaries
       ansible.builtin.shell:

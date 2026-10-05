@@ -13,13 +13,19 @@ Installing [homebrew](https://brew.sh/) :
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Then install [xcodes](https://github.com/XcodesOrg/xcodes)
-
-*Since you need to authenticate your Apple ID requiring a 2FA authentifications, you have to run this part manually before running the next part. Additionnly and since `@ledger.fr` extension is currently unhauthorized by Apple policies you will have to use your email address with `.com` instead of `.fr` (being an alias to `.com`)*
+Then install [xcodes](https://github.com/XcodesOrg/xcodes):
 
 ```bash
 brew install xcodesorg/made/xcodes
 ```
+
+Use `xcodes` to install and select the Xcode version currently used by the team. For example, to install and select Xcode 16.2:
+
+```bash
+xcodes install 16.2 --select
+```
+
+Since installing Xcode requires Apple ID authentication and 2FA, you must run this command manually before running the bootstrap script. The `@ledger.fr` extension is currently unauthorized by Apple policies, so use your `.com` email alias instead.
 
 ## Installation
 

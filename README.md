@@ -19,10 +19,10 @@ Then install [xcodes](https://github.com/XcodesOrg/xcodes):
 brew install xcodesorg/made/xcodes
 ```
 
-Use `xcodes` to install and select the Xcode version currently used by the team. For example, to install and select Xcode 16.2:
+Use `xcodes` to install and select the Xcode version currently used by the team. For example, to install and select Xcode 26.4.1:
 
 ```bash
-xcodes install 16.2 --select
+xcodes install 26.4.1 --select
 ```
 
 Since installing Xcode requires Apple ID authentication and 2FA, you must run this command manually before running the bootstrap script. The `@ledger.fr` extension is currently unauthorized by Apple policies, so use your `.com` email alias instead.

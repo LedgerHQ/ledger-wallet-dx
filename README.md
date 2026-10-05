@@ -13,13 +13,19 @@ Installing [homebrew](https://brew.sh/) :
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Then install [xcodes](https://github.com/XcodesOrg/xcodes)
-
-*Since you need to authenticate your Apple ID requiring a 2FA authentifications, you have to run this part manually before running the next part. Additionnly and since `@ledger.fr` extension is currently unhauthorized by Apple policies you will have to use your email address with `.com` instead of `.fr` (being an alias to `.com`)*
+Then install [xcodes](https://github.com/XcodesOrg/xcodes):
 
 ```bash
 brew install xcodesorg/made/xcodes
 ```
+
+Use `xcodes` to install and select the Xcode version currently used by the team. For example, to install and select Xcode 26.4.1:
+
+```bash
+xcodes install 26.4.1 --select
+```
+
+Since installing Xcode requires Apple ID authentication and 2FA, you must run this command manually before running the bootstrap script. The `@ledger.fr` extension is currently unauthorized by Apple policies, so use your `.com` email alias instead.
 
 ## Installation
 
@@ -39,10 +45,14 @@ The easiest way to understand what's installed is to read the contents of `ansib
 
 ## Finalisation 
 
-You will need to reload your current shell once the script has finished. To do so, execute the following command : 
- ```console
+You will need to reload your current shell once the script has finished. To do so, execute the following command:
+
+```console
 exec zsh
 ```
+
+Also ensure you have opened **Android Studio** for the first time and completed the setup.
+
 Now you're done and your laptop is ready :clap:
 
 ## Improvements
@@ -51,7 +61,7 @@ New tools and utilities installed through `ansible` can be added. To test your w
 
 ## Pre-installed zsh shortcuts
 
-Once the installation is done, you can use the following shortcuts in your zsh terminal.
+Once the installation is done, you can use the following shortcut in your zsh terminal.
 
 | Shortcut | Description |
 | ------------------ | ------------------ |

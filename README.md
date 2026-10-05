@@ -61,7 +61,7 @@ New tools and utilities installed through `ansible` can be added. To test your w
 
 ## Pre-installed zsh shortcuts
 
-Once the installation is done, you can use the following shortcuts in your zsh terminal.
+Once the installation is done, you can use the following shortcut in your zsh terminal.
 
 | Shortcut | Description |
 | ------------------ | ------------------ |

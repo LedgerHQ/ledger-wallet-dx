@@ -109,6 +109,7 @@
       community.general.homebrew_cask:
         name: "{{ item }}"
         sudo_password: "{{ password }}"
+        accept_external_apps: true
       with_items:
         - drawio
         - android-file-transfer
